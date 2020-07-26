@@ -1,18 +1,22 @@
+#include "../src/generator/board.h"
+
 #include <iostream>
 #include <vector>
-#include "generator/board.hpp"
+#include <string>
 
 using std::cout;
 using std::endl;
 using std::vector;
-using generator::Board;
+using std::string;
 
 int main() {
-    Board board ("X OXO    ");
+    string conf = "XO--O----";
+
+    Board board (conf);
 
     board.print_board();
 
-    cout << board.configuration;
+    cout << board.configuration << endl;
 
     for (auto n : board.weights) {
         cout << n << " ";
@@ -23,11 +27,12 @@ int main() {
         cout << n << " ";
     };
     cout << endl;
-
-    /*  TO UNCOMMENT AFTER FIRST RUN.   
+   
+    /*
+    // uncomment after first run
     vector<int> new_weights = {5, 5, 5, 5, 5, 5};
     board.weights = new_weights;
-    board.update_file(); 
+    board.update_file();  
     */
     
-}
+};
