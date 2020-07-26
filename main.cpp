@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-#include <generator/board.hpp>
+#include "generator/board.hpp"
 
 using std::cout;
 using std::endl;
