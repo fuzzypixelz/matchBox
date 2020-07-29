@@ -16,16 +16,16 @@ using std::ios;
 using std::ios_base;
 using std::endl;
 
+/* All possible moves */
+const char X    = 'X';
+const char O    = 'O';
+const char NONE = '-';
+const int SLOTS = 9;
+const int MAX_WEIGHT = 10;
+
 class Board {
     private:
-        /* all possible moves */
-        const char X    = 'X';
-        const char O    = 'O';
-        const char NONE = '-';
-
         /* this needs organizing */
-        const int SLOTS = 9;
-        const int MAX_WEIGHT = 10;
         string file_path;
 
         void set_empty_slots ();
@@ -39,8 +39,8 @@ class Board {
         No board can be initialized without:
             configuration, weights, empty_slots
         */
+        Board () : Board("---------") {};
         Board (string);
-
 
         void print_board ();
 
@@ -64,5 +64,7 @@ class Board {
         */
         vector<int> empty_slots;
 };
+
+int random_number(int);
 
 #endif // BOARD_H
