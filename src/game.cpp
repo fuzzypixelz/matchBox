@@ -79,6 +79,18 @@ Game::Game () {
     sequence.push_back(scene);
 };
 
+Game::Game (bool human_starts) {
+    /*
+        This constructor decides who shall start, with input from the user.
+    */
+
+    human_turn = human_starts;
+
+    /* The sequence starts with an empty board. */
+    Scene scene;
+    sequence.push_back(scene);
+}
+
 bool Game::human_wins () {
     /* 
         Checks if the human player has won. 

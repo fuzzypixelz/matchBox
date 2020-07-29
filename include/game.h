@@ -61,6 +61,7 @@ class Game {
             Takes no arguments, and randomly decides who plays first.
         */
         Game ();
+        Game (bool);
         void start_game ();
         void test ();
 };
