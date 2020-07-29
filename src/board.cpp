@@ -123,3 +123,17 @@ void Board::update_file () {
     file << endl;
     file.close();
 };
+
+int  Board::next_move () {
+    /*
+        Calculates the next move to be taken.
+    */
+
+    /* Computes the maximum weight, and therefore the next move. */
+    const int max_weight_index = max_element(weights.begin(), weights.end()) 
+                                 - weights.begin();
+    const int max_weight = *max_element(weights.begin(), weights.end());
+    const int next_move = empty_slots[max_weight_index];
+
+    return next_move;
+}

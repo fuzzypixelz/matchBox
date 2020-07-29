@@ -1,8 +1,5 @@
 #include "../include/game.h"
 
-#include <algorithm>
-
-using std::max_element;
 using std::cin;
 using std::cout;
 using std::max;
@@ -47,7 +44,8 @@ bool  is_winconfig (const string conf, const char mark) {
 
 Scene get_next_scene (const string current_conf, const int next_move, const char mark) {
     /* 
-        Constructs the next Scene using the next move and the next board. 
+        Constructs the next Scene using the next move and the next board, 
+        for the player using mark. 
     */
 
     /* The next configuration. */
@@ -62,6 +60,7 @@ Scene get_next_scene (const string current_conf, const int next_move, const char
     Scene next_scene;
     next_scene.board = next_board;
     next_scene.move = next_move;
+    next_scene.mark = mark;
 
     return next_scene;
 };
@@ -89,7 +88,7 @@ Game::Game (bool human_starts) {
     /* The sequence starts with an empty board. */
     Scene scene;
     sequence.push_back(scene);
-}
+};
 
 bool Game::human_wins () {
     /* 
@@ -105,7 +104,6 @@ bool Game::matchbox_wins () {
     */
 
     return is_winconfig(get_latest_board().configuration, matchbox_mark);
-
 };
 
 bool Game::is_draw () {
@@ -130,6 +128,7 @@ bool Game::is_over () {
     /*
         Checks if the game is over.
     */
+
     bool human_won = human_wins();
     bool matchbox_won = matchbox_wins();
     bool was_draw = is_draw(); 
@@ -161,16 +160,10 @@ void Game::matchbox_play () {
     */
 
     /* Collects all information about the current board. */
-    const Board current_board = get_latest_board();
-    const vector<int> weights = current_board.weights;
-    const vector<int> empty_slots = current_board.empty_slots;
+    Board current_board = get_latest_board();
     const string current_conf = current_board.configuration;
-
-    /* Computes the maximum weight, and therefore the next move. */
-    const int max_weight_index = max_element(weights.begin(), weights.end()) 
-                                 - weights.begin();
-    const int max_weight = *max_element(weights.begin(), weights.end());
-    const int next_move = empty_slots[max_weight_index];
+ 
+    const int next_move = current_board.next_move();
 
     /* Appends the next scene to the sequence. */
     sequence.push_back(get_next_scene(current_conf, next_move, matchbox_mark));
@@ -223,14 +216,31 @@ void Game::play () {
 };
 
 void Game::alter_sequence(int amount) {
-    for (auto scene : sequence) {
-        for (auto &w : scene.board.weights) {
+    /*
+        Adds amount to all the weights of the moves played by matchbox;
+    */
+
+    for (auto &scene : sequence) {
+        /* Unmovable block of bad data structure. */
+        Board &board = scene.board;
+        vector<int> &weights = board.weights;
+        vector<int> empty_slots = board.empty_slots;
+        int move = board.next_move();
+
+        for (int i = 0; i < weights.size(); i++) {
             /* Don't make a copy of w! */
-            if ((w + amount) >= 0) {
-                w = min(MAX_WEIGHT-1, w + amount);
-            } else {
-                w = 0;
-            };
+            /* Only change the weight of moves by matchBox! */
+            if ((empty_slots[i] == move) && (scene.mark == human_mark)) {
+                /* This one will probably blow up. */
+                int &weight = weights[i];
+                int new_weight = weight + amount;
+
+                if (new_weight >= 0) {
+                    weight = min(MAX_WEIGHT-1, new_weight);
+                } else {
+                    weight = 0;
+                }
+            }
         };
         scene.board.update_file();
     };

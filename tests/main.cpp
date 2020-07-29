@@ -5,11 +5,13 @@ int main(int argc, char** argv) {
 
     Game game;
 
-    if (argv[0] == "human") {
-        game = Game(true);
-    }
-    else if (argv[0] == "matchbox") {
-        game = Game(false);
+    if (argc > 1) {
+        if (argv[1] == string("human")) {
+            game = Game(true);
+        }
+        else if (argv[1] == string("matchbox")) {
+            game = Game(false);
+        };
     };
 
     game.start_game();

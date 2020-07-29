@@ -13,6 +13,9 @@ struct Scene {
 
     /* The index of the move in board.configuration */
     int move;
+
+    /* Specifies the player, uniquely determined by their mark. */
+    char mark;
 };
 
 /*  

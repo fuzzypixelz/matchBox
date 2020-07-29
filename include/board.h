@@ -6,6 +6,7 @@
 #include <vector>
 #include <fstream>
 #include <random>
+#include <algorithm>
 
 // using statements
 using std::string;
@@ -15,6 +16,7 @@ using std::ofstream;
 using std::ios;
 using std::ios_base;
 using std::endl;
+using std::max_element;
 
 /* All possible moves */
 const char X    = 'X';
@@ -45,6 +47,8 @@ class Board {
         void print_board ();
 
         void update_file ();
+
+        int next_move ();
 
         /*
         records the board state from top to bottom and left to right
