@@ -212,9 +212,10 @@ void Game::play () {
 
 void Game::alter_sequence(int amount) {
     for (auto scene : sequence) {
-        for (auto w : scene.board.weights) {
+        for (auto &w : scene.board.weights) {
+            /* Don't make a copy of w! */
             if ((w + amount) >= 0) {
-                w = max(MAX_WEIGHT-1, w + amount);
+                w = min(MAX_WEIGHT-1, w + amount);
             } else {
                 w = 0;
             };
