@@ -66,10 +66,18 @@ Scene get_next_scene (const string current_conf, const int next_move, const char
 };
 
 Board Game::get_latest_board () {
+    /*
+        Returns the last board in the recorded sequence.
+    */
+
     return sequence.back().board;
 };
 
 Game::Game () {
+    /*
+        Sets human_turn randomly.
+    */
+
     const int r = random_number(2); // random number between 0 and 1
     human_turn = (r == 0);
 
@@ -217,7 +225,7 @@ void Game::play () {
 
 void Game::alter_sequence(int amount) {
     /*
-        Adds amount to all the weights of the moves played by matchbox;
+        Adds amount to all the weights of the moves played by matchbox.
     */
 
     for (auto &scene : sequence) {

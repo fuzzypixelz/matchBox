@@ -1,7 +1,9 @@
 #include "../include/game.h"
 
+/*
+    Checks command arguments and starts the game accordinly.
+*/
 int main(int argc, char** argv) {
-    /* Neat and tidy. */
 
     Game game;
 

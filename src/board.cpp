@@ -14,8 +14,8 @@ int random_number(int max_number) {
 
 vector<int> string_to_vector (string input) {
     /* 
-        converts a string to a vector of integers
-        meant to convert the get back weights from the file
+        Converts a string to a vector of integers,
+        meant to convert weights obtained from the file to vector<int>.
     */
 
     vector<int> result;
@@ -29,7 +29,10 @@ vector<int> string_to_vector (string input) {
 };
 
 Board::Board (string conf) {
-    /* Constructor definition */
+    /* 
+        Initializes the configuration, file_path, empty_slots and generates
+        a file containing weights if there isn't any, otherwise it loads weights from it.
+    */
 
     /* Always done, even if file exists */
     configuration = conf;
@@ -81,8 +84,8 @@ void Board::print_board () {
 
 void Board::set_empty_slots () {
     /*         
-        locates the empty slots on the board
-        the return vector contains their indices, in increasing order
+        Locates and stores the empty slots on the board,
+        the return vector contains their indices, in increasing order.
     */
 
     for (int i = 0; i < SLOTS; i++) {
@@ -94,22 +97,17 @@ void Board::set_empty_slots () {
 
 void Board::set_random_weights () {
     /* 
-        this will set up the random weights vector
-        which is a class constant, and represents the 
+        Generates the weights vector using random values.
     */
 
-    int length = empty_slots.size();
-
-    for (int i = 0; i < length; i++) {
+    for (int i = 0; i < empty_slots.size(); i++) {
         weights.push_back(random_number(MAX_WEIGHT));
     };
 };
 
 void Board::update_file () {
     /* 
-        update the assigned file
-        with the new wights
-        TRICKY!
+        Update the assigned file with new weights.
     */
     
     using std::ios;
